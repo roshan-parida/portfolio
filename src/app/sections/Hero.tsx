@@ -78,7 +78,7 @@ const Hero = () => {
                 <div className="flex flex-col items-center">
                     <Image
                         src={roshanImg}
-                        alt="Roshan's image"
+                        alt="Image of roshan"
                         className="w-[125px] h-[125px] object-cover mb-2 rounded-full border-4 border-gray-700 shadow-lg"
                     />
 
@@ -110,7 +110,9 @@ const Hero = () => {
 
                     <button className="inline-flex items-center gap-2 border boder-white bg-white text-gray-900 h-12 px-6 mt-8 rounded-xl">
                         <Icon icon="tabler:circle-arrow-down" />
-                        <span className="font-semibold">Let's Connect</span>
+                        <span className="font-semibold">
+                            Let&apos;s Connect
+                        </span>
                     </button>
                 </div>
             </div>
