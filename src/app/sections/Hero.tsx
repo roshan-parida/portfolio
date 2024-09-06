@@ -1,11 +1,11 @@
 import Image from "next/image";
 import roshanImg from "@/app/assets/images/roshan.jpg";
 import { Icon } from "@iconify/react";
-import { HeroOrbit } from "../components/HeroOrbit";
+import { HeroOrbit } from "@/app/components/HeroOrbit";
 
-const Hero = () => {
+export const Hero = () => {
     return (
-        <div className="py-32 md:py-48 lg:py-60 relative z-0 overflow-x-clip">
+        <div className="py-32 md:py-48 lg:py-64 relative z-0 overflow-x-clip">
             <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_70%,transparent)]">
                 <div className="size-[620px] hero-ring"></div>
                 <div className="size-[820px] hero-ring"></div>
@@ -119,5 +119,3 @@ const Hero = () => {
         </div>
     );
 };
-
-export default Hero;
