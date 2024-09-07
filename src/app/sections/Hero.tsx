@@ -1,12 +1,20 @@
 import Image from "next/image";
 import roshanImg from "@/app/assets/images/roshan.jpg";
+import grainImage from "@/app/assets/images/grain.jpeg";
 import { Icon } from "@iconify/react";
 import { HeroOrbit } from "@/app/components/HeroOrbit";
 
 export const Hero = () => {
     return (
         <div className="py-32 md:py-48 lg:py-64 relative z-0 overflow-x-clip">
-            <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_70%,transparent)]">
+            <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_70%,transparent)] -z-10">
+                <div
+                    className="absolute inset-0 opacity-[0.01] pointer-events-none"
+                    style={{
+                        backgroundImage: `url(${grainImage.src})`,
+                    }}
+                ></div>
+
                 <div className="size-[620px] hero-ring"></div>
                 <div className="size-[820px] hero-ring"></div>
                 <div className="size-[1020px] hero-ring"></div>
