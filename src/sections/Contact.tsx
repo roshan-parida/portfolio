@@ -1,5 +1,5 @@
+import { Card } from "@/components/Card";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { Card } from "@/app/components/Card";
 
 export const Contact = () => {
     return (

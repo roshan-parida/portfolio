@@ -1,8 +1,8 @@
 import Image from "next/image";
-import placeHolder from "@/app/assets/images/placeholder.jpg";
+import placeHolder from "@/assets/images/placeholder.jpg";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { SectionHeader } from "@/app/components/SectionHeader";
-import { Card } from "@/app/components/Card";
+import { SectionHeader } from "@/components/SectionHeader";
+import { Card } from "@/components/Card";
 
 const portfolioProjects = [
     {
@@ -30,6 +30,19 @@ const portfolioProjects = [
         link: "https://roshansportfolio.vercel.app/",
         image: placeHolder,
     },
+
+    {
+        source: "IINTM (Minor Project)",
+        year: "2024",
+        title: "Web Scrapper: under development",
+        result: [
+            { title: "something" },
+            { title: "something" },
+            { title: "something" },
+        ],
+        link: "#",
+        image: placeHolder,
+    },
 ];
 
 export const Projects = () => {
@@ -45,10 +58,13 @@ export const Projects = () => {
                 />
 
                 <div className="flex flex-col mt-10 md:mt-20 gap-20">
-                    {portfolioProjects.map((project) => (
+                    {portfolioProjects.map((project, projectIndex) => (
                         <Card
                             key={project.title}
-                            className="pt-8 pb-0 px-8 md:pt-12 md:px-10 lg:pt-16 lg:px-20"
+                            className="pt-8 pb-0 px-8 md:pt-12 md:px-10 lg:pt-16 lg:px-20 sticky"
+                            style={{
+                                top: `calc(64px + ${projectIndex * 40}px) `,
+                            }}
                         >
                             <div className="lg:grid lg:grid-cols-2 lg:gap-16">
                                 <div className="lg:pb-16">

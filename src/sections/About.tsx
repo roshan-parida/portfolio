@@ -1,11 +1,14 @@
+"use client";
 import Image from "next/image";
-import roshanImg from "@/app/assets/images/roshan.jpg";
-import bookImage from "@/app/assets/images/chainsawman.png";
-import { SectionHeader } from "@/app/components/SectionHeader";
-import { Card } from "@/app/components/Card";
-import { CardHeader } from "@/app/components/CardHeader";
-import { ToolboxItem } from "@/app/components/ToolboxItem";
+import roshanImg from "@/assets/images/roshan.jpg";
+import bookImage from "@/assets/images/chainsawman.png";
+import { SectionHeader } from "@/components/SectionHeader";
+import { Card } from "@/components/Card";
+import { CardHeader } from "@/components/CardHeader";
+import { ToolboxItem } from "@/components/ToolboxItem";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { motion } from "framer-motion";
+import { useRef } from "react";
 
 const toolboxItems = [
     {
@@ -66,6 +69,8 @@ const hobbies = [
 ];
 
 export const About = () => {
+    const constraintRef = useRef(null);
+
     return (
         <div className="py-20 lg:py-28">
             <div className="container">
@@ -98,12 +103,13 @@ export const About = () => {
                             <ToolboxItem
                                 toolboxItems={toolboxItems}
                                 className=""
+                                itemsWrapperClassName="animate-move-left [animation-duration:30s]"
                             />
 
                             <ToolboxItem
                                 toolboxItems={toolboxItems}
                                 className="mt-6"
-                                itemsWrapperClassName="-translate-x-1/2"
+                                itemsWrapperClassName="animate-move-right [animation-duration:15s]"
                             />
                         </Card>
                     </div>
@@ -116,15 +122,20 @@ export const About = () => {
                                 className="px-6 py-6"
                             />
 
-                            <div className="relative flex-1">
+                            <div
+                                className="relative flex-1"
+                                ref={constraintRef}
+                            >
                                 {hobbies.map((hobby) => (
-                                    <div
+                                    <motion.div
                                         key={hobby.title}
                                         className="inline-flex items-center gap-2 px-6 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full py-1.5 absolute"
                                         style={{
                                             left: hobby.left,
                                             top: hobby.top,
                                         }}
+                                        drag
+                                        dragConstraints={constraintRef}
                                     >
                                         <span className="font-medium text-gray-950">
                                             {hobby.title}
@@ -135,7 +146,7 @@ export const About = () => {
                                                 className="size-6 text-gray-950"
                                             />
                                         </span>
-                                    </div>
+                                    </motion.div>
                                 ))}
                             </div>
                         </Card>
@@ -146,10 +157,14 @@ export const About = () => {
                                 allowFullScreen
                                 loading="eager"
                                 referrerPolicy="no-referrer-when-downgrade"
-                                className="w-full h-full object-cover p-[2px] rounded-3xl"
+                                className="w-full h-full border-none object-cover rounded-3xl outline outline-2 -outline-offset-2 outline-gray-950/50 antialiased"
                             ></iframe>
 
-                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-24 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 after:content-[''] after:absolute after:inset-0 after:outline after:outline-2 after:-outline-offset-2 after:outline-gray-950/30 after:rounded-full antialiased">
+                            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-24 rounded-full">
+                                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-10 animate-ping [animation-duration:2s]"></div>
+
+                                <div className="absolute inset-0 rounded-full bg-gradient-to-r from-emerald-300 to-sky-400 -z-10"></div>
+
                                 <Image
                                     src={roshanImg}
                                     alt="Image of roshan"
