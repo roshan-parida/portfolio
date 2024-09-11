@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 
 export const Contact = () => {
     return (
-        <div className="py-16 pt-12 lg:py-24 lg:pt-20">
+        <section id="contact" className="py-16 pt-12 lg:py-24 lg:pt-20">
             <div className="container">
                 <Card>
                     <div className="bg-gradient-to-r from-emerald-300 to-sky-400 text-gray-900 py-8 px-10 rounded-3xl text-center md:text-left">
@@ -37,6 +37,6 @@ export const Contact = () => {
                     </div>
                 </Card>
             </div>
-        </div>
+        </section>
     );
 };

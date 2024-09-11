@@ -6,7 +6,10 @@ import { HeroOrbit } from "@/components/HeroOrbit";
 
 export const Hero = () => {
     return (
-        <div className="py-32 md:py-48 lg:py-64 relative z-0 overflow-x-clip">
+        <section
+            id="home"
+            className="py-32 md:py-48 lg:py-64 relative z-0 overflow-x-clip"
+        >
             <div className="absolute inset-0 [mask-image:linear-gradient(to_bottom,transparent,black_10%,black_70%,transparent)] -z-10">
                 <div
                     className="absolute inset-0 opacity-[0.01] pointer-events-none"
@@ -24,9 +27,9 @@ export const Hero = () => {
                     size={430}
                     rotation={-14}
                     shouldOrbit
-                    orbitDuration="30s"
+                    orbitDuration="90s"
                     shouldSpin
-                    spinDuration="3s"
+                    spinDuration="12s"
                 >
                     <Icon
                         icon="lucide:sparkle"
@@ -38,9 +41,9 @@ export const Hero = () => {
                     size={440}
                     rotation={79}
                     shouldOrbit
-                    orbitDuration="32s"
+                    orbitDuration="92s"
                     shouldSpin
-                    spinDuration="3s"
+                    spinDuration="12s"
                 >
                     <Icon
                         icon="lucide:sparkle"
@@ -52,9 +55,9 @@ export const Hero = () => {
                     size={520}
                     rotation={-41}
                     shouldOrbit
-                    orbitDuration="34s"
+                    orbitDuration="94s"
                     shouldSpin
-                    spinDuration="6s"
+                    spinDuration="4s"
                 >
                     <div className="size-2 bg-emerald-300/20 rounded-full"></div>
                 </HeroOrbit>
@@ -63,9 +66,9 @@ export const Hero = () => {
                     size={530}
                     rotation={178}
                     shouldOrbit
-                    orbitDuration="36s"
+                    orbitDuration="96s"
                     shouldSpin
-                    spinDuration="3s"
+                    spinDuration="12s"
                 >
                     <Icon
                         icon="lucide:sparkle"
@@ -77,7 +80,7 @@ export const Hero = () => {
                     size={550}
                     rotation={20}
                     shouldOrbit
-                    orbitDuration="38s"
+                    orbitDuration="98s"
                     shouldSpin
                     spinDuration="6s"
                 >
@@ -91,7 +94,7 @@ export const Hero = () => {
                     size={590}
                     rotation={98}
                     shouldOrbit
-                    orbitDuration="40s"
+                    orbitDuration="100s"
                     shouldSpin
                     spinDuration="6s"
                 >
@@ -105,9 +108,9 @@ export const Hero = () => {
                     size={650}
                     rotation={-5}
                     shouldOrbit
-                    orbitDuration="42s"
+                    orbitDuration="102s"
                     shouldSpin
-                    spinDuration="6s"
+                    spinDuration="4s"
                 >
                     <div className="size-2 bg-emerald-300/20 rounded-full"></div>
                 </HeroOrbit>
@@ -116,9 +119,9 @@ export const Hero = () => {
                     size={710}
                     rotation={144}
                     shouldOrbit
-                    orbitDuration="44s"
+                    orbitDuration="104s"
                     shouldSpin
-                    spinDuration="3s"
+                    spinDuration="12s"
                 >
                     <Icon
                         icon="lucide:sparkle"
@@ -130,9 +133,9 @@ export const Hero = () => {
                     size={720}
                     rotation={85}
                     shouldOrbit
-                    orbitDuration="46s"
+                    orbitDuration="106s"
                     shouldSpin
-                    spinDuration="6s"
+                    spinDuration="10s"
                 >
                     <div className="size-3 bg-emerald-300/20 rounded-full"></div>
                 </HeroOrbit>
@@ -141,9 +144,9 @@ export const Hero = () => {
                     size={800}
                     rotation={-72}
                     shouldOrbit
-                    orbitDuration="48s"
+                    orbitDuration="108s"
                     shouldSpin
-                    spinDuration="6s"
+                    spinDuration="10s"
                 >
                     <Icon
                         icon="ph:star-four-fill"
@@ -173,30 +176,41 @@ export const Hero = () => {
 
                 <div className="max-w-lg mx-auto">
                     <h1 className="font-serif md:text-5xl text-3xl text-center mt-8 tracking-wide">
-                        Learning something new everyday
+                        Hi, I&apos;m Roshan
                     </h1>
 
                     <p className="mt-4 text-center text-white/60 md:text-lg">
-                        Lorem ipsum dolor sit amet consectetur, adipisicing
-                        elit. Ab tenetur hic numquam, iste, nobis quis
-                        accusantium, eaque odit
+                        a passionate{" "}
+                        <span className="font-bold text-emerald-300">
+                            BCA Student
+                        </span>{" "}
+                        exploring the worlds of web, AI, and software
+                        development. Driven by curiosity and a relentless quest
+                        to learn something new every day.
                     </p>
                 </div>
 
                 <div className="flex flex-col md:flex-row justify-center items-center gap-4">
-                    <button className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 mt-8 rounded-xl">
-                        <span className="font-semibold">Explore My Work</span>
+                    <a
+                        href="#"
+                        target="_blank"
+                        className="inline-flex items-center gap-2 border border-white/15 px-6 h-12 mt-8 rounded-xl"
+                    >
+                        <span className="font-semibold">Resume</span>
                         <Icon icon="tabler:circle-arrow-down" className="" />
-                    </button>
+                    </a>
 
-                    <button className="inline-flex items-center gap-2 border boder-white bg-white text-gray-900 h-12 px-6 mt-8 rounded-xl">
+                    <a
+                        href="#contact"
+                        className="inline-flex items-center gap-2 border boder-white bg-white text-gray-900 h-12 px-6 mt-8 rounded-xl"
+                    >
                         <Icon icon="tabler:circle-arrow-down" />
                         <span className="font-semibold">
                             Let&apos;s Connect
                         </span>
-                    </button>
+                    </a>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };

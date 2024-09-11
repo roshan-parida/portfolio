@@ -1,5 +1,7 @@
 import Image from "next/image";
-import placeHolder from "@/assets/images/placeholder.jpg";
+import placeHolder from "@/assets/mockups/placeholder-mockup.png";
+import fluxMock from "@/assets/mockups/flux-mockup.png";
+import portfolioMock from "@/assets/mockups/protfolio-mockup.png";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Card } from "@/components/Card";
@@ -10,51 +12,49 @@ const portfolioProjects = [
         year: "2024",
         title: "Flux: Music Streaming Web Application",
         result: [
-            { title: "something" },
-            { title: "something" },
-            { title: "something" },
+            { title: "Hands-on experience with the MERN stack." },
+            { title: "Developed the frontend using React+Vite," },
+            { title: "Developed proficiency in working with APIs." },
+            { title: "Deployed using Vercel and Render." },
         ],
         link: "https://fluxwaves.vercel.app/",
-        image: placeHolder,
+        image: fluxMock,
+        ping: "green",
     },
 
     {
-        source: "Self-Project",
+        source: "Personal Project",
         year: "2024",
-        title: "Portfolio: All there is to know about me",
+        title: "Portfolio: Showcasing My Journey",
         result: [
-            { title: "something" },
-            { title: "something" },
-            { title: "something" },
+            { title: "Developed using Next.js" },
+            { title: "Implemented animations with Framer Motion " },
+            { title: "Deployed using Vercel for seamless hosting" },
         ],
         link: "https://roshansportfolio.vercel.app/",
-        image: placeHolder,
+        image: portfolioMock,
+        ping: "green",
     },
 
     {
         source: "IINTM (Minor Project)",
         year: "2024",
         title: "Web Scrapper: under development",
-        result: [
-            { title: "something" },
-            { title: "something" },
-            { title: "something" },
-        ],
-        link: "#",
+        result: [{ title: "..." }, { title: "..." }, { title: "..." }],
+        link: "",
         image: placeHolder,
+        ping: "red",
     },
 ];
 
 export const Projects = () => {
     return (
-        <section className="pb-16 lg:py-24">
+        <section id="projects" className="pb-16 lg:py-24">
             <div className="container">
                 <SectionHeader
                     title="Featured Projects"
-                    eyebrow="Real World Results"
-                    description="Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Animi nesciunt sint quo atque nulla optio dignissimos vero
-                    velit numquam quas"
+                    eyebrow="Showcasing Innovation"
+                    description="Explore a curated selection of standout projects that showcase my technical proficiency and innovative thinking"
                 />
 
                 <div className="flex flex-col mt-10 md:mt-20 gap-20">
@@ -95,14 +95,34 @@ export const Projects = () => {
                                         ))}
                                     </ul>
 
-                                    <a href={project.link}>
-                                        <button className="bg-white text-gray-950 h-12 w-full md:w-auto px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-2 mt-8">
-                                            <span>Vist Live Site</span>
-                                            <Icon
-                                                icon="ph:arrow-circle-up-right-bold"
-                                                className="size-4"
-                                            />
-                                        </button>
+                                    <a
+                                        href={
+                                            project.ping === "green"
+                                                ? project.link
+                                                : undefined
+                                        }
+                                        target={
+                                            project.ping === "green"
+                                                ? "_blank"
+                                                : undefined
+                                        }
+                                        rel={
+                                            project.ping === "green"
+                                                ? "noopener noreferrer"
+                                                : undefined
+                                        }
+                                    >
+                                        <div className="bg-white  text-gray-950 border border-white/50 h-12 w-full md:w-auto px-6 rounded-xl font-semibold inline-flex items-center justify-center gap-3 mt-8 shadow-lg">
+                                            <span>Visit Live Site</span>
+
+                                            <div
+                                                className={`size-2.5 rounded-full relative bg-${project.ping}-500`}
+                                            >
+                                                <div
+                                                    className={`absolute inset-0 rounded-full animate-ping-large bg-${project.ping}-500`}
+                                                ></div>
+                                            </div>
+                                        </div>
                                     </a>
                                 </div>
 
