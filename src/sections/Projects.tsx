@@ -14,7 +14,6 @@ const portfolioProjects = [
         result: [
             { title: "Hands-on experience with the MERN stack." },
             { title: "Developed the frontend using React+Vite," },
-            { title: "Developed proficiency in working with APIs." },
             { title: "Deployed using Vercel and Render." },
         ],
         link: "https://fluxwaves.vercel.app/",
@@ -43,7 +42,7 @@ const portfolioProjects = [
         result: [{ title: "..." }, { title: "..." }, { title: "..." }],
         link: "",
         image: placeHolder,
-        ping: "red",
+        ping: "yellow",
     },
 ];
 
@@ -99,16 +98,22 @@ export const Projects = () => {
                                         href={
                                             project.ping === "green"
                                                 ? project.link
+                                                : project.ping === "yellow"
+                                                ? undefined
                                                 : undefined
                                         }
                                         target={
                                             project.ping === "green"
                                                 ? "_blank"
+                                                : project.ping === "yellow"
+                                                ? undefined
                                                 : undefined
                                         }
                                         rel={
                                             project.ping === "green"
                                                 ? "noopener noreferrer"
+                                                : project.ping === "yellow"
+                                                ? undefined
                                                 : undefined
                                         }
                                     >
