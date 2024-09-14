@@ -1,7 +1,7 @@
 "use client";
 import Image from "next/image";
 import roshanImg from "@/assets/images/roshan.jpg";
-import bookImage from "@/assets/images/chainsawman.png";
+import bookImage from "@/assets/images/lookback.png";
 import { SectionHeader } from "@/components/SectionHeader";
 import { Card } from "@/components/Card";
 import { CardHeader } from "@/components/CardHeader";
@@ -20,7 +20,7 @@ const toolboxItems = [
         iconType: "flowbite:html-solid",
     },
     {
-        title: "CCS3",
+        title: "CSS3",
         iconType: "flowbite:css-solid",
     },
     {
@@ -61,9 +61,15 @@ const hobbies = [
         top: "35%",
     },
     {
+        title: "Journaling",
+        icon: "fluent:pen-24-filled",
+        left: "20%",
+        top: "65%",
+    },
+    {
         title: "Video Games",
         icon: "fluent:games-24-filled",
-        left: "35%",
+        left: "60%",
         top: "40%",
     },
 ];
@@ -155,7 +161,7 @@ export const About = () => {
                             <iframe
                                 src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d448184.1134652341!2d77.12336456635295!3d28.64549338718438!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390cfd5b347eb62d%3A0x37205b715389640!2sDelhi!5e0!3m2!1sen!2sin!4v1725697377184!5m2!1sen!2sin"
                                 allowFullScreen
-                                loading="eager"
+                                loading="lazy"
                                 referrerPolicy="no-referrer-when-downgrade"
                                 className="w-full h-full border-none object-cover rounded-3xl outline outline-2 -outline-offset-2 outline-gray-950/50 antialiased"
                             ></iframe>

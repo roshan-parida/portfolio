@@ -18,7 +18,7 @@ const portfolioProjects = [
         ],
         link: "https://fluxwaves.vercel.app/",
         image: fluxMock,
-        ping: "green",
+        ping: true,
     },
 
     {
@@ -32,7 +32,7 @@ const portfolioProjects = [
         ],
         link: "https://roshansportfolio.vercel.app/",
         image: portfolioMock,
-        ping: "green",
+        ping: true,
     },
 
     {
@@ -42,7 +42,7 @@ const portfolioProjects = [
         result: [{ title: "..." }, { title: "..." }, { title: "..." }],
         link: "",
         image: placeHolder,
-        ping: "yellow",
+        ping: false,
     },
 ];
 
@@ -96,24 +96,16 @@ export const Projects = () => {
 
                                     <a
                                         href={
-                                            project.ping === "green"
+                                            project.ping
                                                 ? project.link
-                                                : project.ping === "yellow"
-                                                ? undefined
                                                 : undefined
                                         }
                                         target={
-                                            project.ping === "green"
-                                                ? "_blank"
-                                                : project.ping === "yellow"
-                                                ? undefined
-                                                : undefined
+                                            project.ping ? "_blank" : undefined
                                         }
                                         rel={
-                                            project.ping === "green"
+                                            project.ping
                                                 ? "noopener noreferrer"
-                                                : project.ping === "yellow"
-                                                ? undefined
                                                 : undefined
                                         }
                                     >
@@ -121,10 +113,18 @@ export const Projects = () => {
                                             <span>Visit Live Site</span>
 
                                             <div
-                                                className={`size-2.5 rounded-full relative bg-${project.ping}-500`}
+                                                className={`size-2.5 rounded-full relative ${
+                                                    project.ping
+                                                        ? "bg-green-500"
+                                                        : "bg-yellow-500"
+                                                }`}
                                             >
                                                 <div
-                                                    className={`absolute inset-0 rounded-full animate-ping-large bg-${project.ping}-500`}
+                                                    className={`absolute inset-0 rounded-full animate-ping-large ${
+                                                        project.ping
+                                                            ? "bg-green-500"
+                                                            : "bg-yellow-500"
+                                                    }`}
                                                 ></div>
                                             </div>
                                         </div>
