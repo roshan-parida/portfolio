@@ -30,9 +30,9 @@ export const Footer = () => {
                     </div>
 
                     <nav className="flex flex-col md:flex-row  items-center gap-8 z-10">
-                        {footerLinks.map((link) => (
+                        {footerLinks.map((link, idx) => (
                             <a
-                                key={link.title}
+                                key={idx}
                                 href={link.href}
                                 className="inline-flex items-center gap-1.5 z-10"
                             >

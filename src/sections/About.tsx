@@ -51,13 +51,25 @@ const hobbies = [
     {
         title: "Sketching",
         icon: "ri:sketching",
-        left: "50%",
+        left: "65%",
         top: "5%",
     },
     {
-        title: "Web-Series/Movies/Anime",
+        title: "Web-Series",
         icon: "jam:screen",
         left: "10%",
+        top: "35%",
+    },
+    {
+        title: "Movies",
+        icon: "jam:screen",
+        left: "35%",
+        top: "5%",
+    },
+    {
+        title: "Anime",
+        icon: "jam:screen",
+        left: "45%",
         top: "35%",
     },
     {
@@ -67,10 +79,10 @@ const hobbies = [
         top: "65%",
     },
     {
-        title: "Video Games",
+        title: "Games",
         icon: "fluent:games-24-filled",
-        left: "60%",
-        top: "40%",
+        left: "75%",
+        top: "35%",
     },
 ];
 
@@ -132,9 +144,9 @@ export const About = () => {
                                 className="relative flex-1"
                                 ref={constraintRef}
                             >
-                                {hobbies.map((hobby) => (
+                                {hobbies.map((hobby, idx) => (
                                     <motion.div
-                                        key={hobby.title}
+                                        key={idx}
                                         className="inline-flex items-center gap-2 px-6 bg-gradient-to-r from-emerald-300 to-sky-400 rounded-full py-1.5 absolute"
                                         style={{
                                             left: hobby.left,
