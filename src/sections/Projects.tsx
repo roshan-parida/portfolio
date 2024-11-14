@@ -1,5 +1,5 @@
 import Image from "next/image";
-import placeHolder from "@/assets/mockups/placeholder-mockup.png";
+import priceWatch from "@/assets/mockups/pricewatch-mockup.png";
 import fluxMock from "@/assets/mockups/flux-mockup.png";
 import portfolioMock from "@/assets/mockups/protfolio-mockup.png";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -38,11 +38,15 @@ const portfolioProjects = [
     {
         source: "IINTM (Minor Project)",
         year: "2024",
-        title: "Web Scrapper: under development",
-        result: [{ title: "..." }, { title: "..." }, { title: "..." }],
-        link: "",
-        image: placeHolder,
-        ping: false,
+        title: "PriceWatch: Automated price-tracking for amazon",
+        result: [
+            { title: "Real-time Price Monitoring" },
+            { title: "Cross-Platform Tracking" },
+            { title: "Automated Alerts and Notifications" },
+        ],
+        link: "https://pricewatch-delta.vercel.app/",
+        image: priceWatch,
+        ping: true,
     },
 ];
 

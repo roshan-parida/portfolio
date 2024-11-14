@@ -13,6 +13,9 @@ const calistoga = Calistoga({
 export const metadata: Metadata = {
     title: "Roshan's Portfolio",
     description: "All there is to know about Roshan Parida.",
+    icons: {
+        icon: "/favicon.png",
+    },
 };
 
 export default function RootLayout({
