@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { SoundManager } from "./utils/SoundManager";
 
 import Roshan from "./pages/Roshan";
 import Projects from "./pages/Projects";
@@ -8,19 +7,7 @@ import Contact from "./pages/Contact";
 import Header from "./components/Header";
 import Sidebar from "./components/Sidebar";
 import Content from "./components/Content";
-
-const bootSequenceLines = [
-	"MOE BIOS v2.3 INITIALIZING...",
-	"MEMORY CHECK: 640K OK",
-	"LOADING KERNEL...",
-	"DETECTING HARDWARE...",
-	"ESTABLISHING SECURE CONNECTION...",
-	"CONNECTION ESTABLISHED.",
-	"AWAITING USER AUTHENTICATION...",
-	"USER VERIFIED.",
-	"LOADING INTERFACE...",
-	"BOOT COMPLETE.",
-];
+import BootScreen from "./components/BootScreen";
 
 const TABS = {
 	roshan: <Roshan />,
@@ -29,26 +16,9 @@ const TABS = {
 };
 
 function App() {
-	const [bootIndex, setBootIndex] = useState(0);
 	const [bootComplete, setBootComplete] = useState(false);
 	const [activeTab, setActiveTab] = useState<keyof typeof TABS>("roshan");
 	const [systemTime, setSystemTime] = useState("");
-
-	useEffect(() => {
-		if (bootIndex < bootSequenceLines.length) {
-			const timeout = setTimeout(
-				() => setBootIndex(bootIndex + 1),
-				Math.random() * 200 + 50,
-			);
-			return () => clearTimeout(timeout);
-		} else {
-			setTimeout(() => setBootComplete(true), 1000);
-		}
-
-		if (bootIndex === 0) {
-			SoundManager.boot();
-		}
-	}, [bootIndex]);
 
 	useEffect(() => {
 		const updateTime = () => {
@@ -68,13 +38,7 @@ function App() {
 	}, []);
 
 	if (!bootComplete) {
-		return (
-			<div className="bg-bg-main fixed inset-0 z-50 flex flex-col items-center justify-center text-lg">
-				{bootSequenceLines.slice(0, bootIndex).map((line, index) => (
-					<p key={index}>{line}</p>
-				))}
-			</div>
-		);
+		return <BootScreen onBootComplete={() => setBootComplete(true)} />;
 	}
 
 	return (

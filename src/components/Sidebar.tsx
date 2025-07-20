@@ -31,16 +31,6 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 			</nav>
 
 			<div className="border-border-shadow mt-8 border p-2">
-				<h3 className="text-highlight mb-2 text-lg">SYSTEM STATUS</h3>
-				<p className="text-sm">
-					&gt; CONNECTION:{" "}
-					<span className="text-highlight animate-pulse">SECURE</span>
-				</p>
-				<p className="text-sm">&gt; ID VERIFIED: LUCIAN</p>
-				<p className="text-sm">&gt; CLEARANCE: LEVEL 7</p>
-			</div>
-
-			<div className="border-border-shadow mt-8 border p-2">
 				<h3 className="text-highlight mb-2 text-lg">NETWORK ACCESS</h3>
 				<a
 					href="https://github.com/roshan-parida"
@@ -66,6 +56,16 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 				>
 					&gt; [In] Instagram
 				</a>
+			</div>
+
+			<div className="border-border-shadow mt-8 border p-2">
+				<h3 className="text-highlight mb-2 text-lg">SYSTEM STATUS</h3>
+				<p className="text-sm">
+					&gt; CONNECTION:{" "}
+					<span className="text-highlight animate-pulse">SECURE</span>
+				</p>
+				<p className="text-sm">&gt; ID VERIFIED: LUCIAN</p>
+				<p className="text-sm">&gt; CLEARANCE: LEVEL 7</p>
 			</div>
 		</div>
 	);
