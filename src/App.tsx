@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { motion } from "motion/react";
 
 import Roshan from "./pages/Roshan";
 import Projects from "./pages/Projects";
@@ -9,8 +10,6 @@ import Sidebar from "./components/Sidebar";
 import Content from "./components/Content";
 import BootScreen from "./components/BootScreen";
 
-import { motion } from "motion/react";
-
 const TABS = {
 	roshan: <Roshan />,
 	projects: <Projects />,
@@ -20,24 +19,6 @@ const TABS = {
 function App() {
 	const [bootComplete, setBootComplete] = useState(false);
 	const [activeTab, setActiveTab] = useState<keyof typeof TABS>("roshan");
-	const [systemTime, setSystemTime] = useState("");
-
-	useEffect(() => {
-		const updateTime = () => {
-			const now = new Date();
-			const timeStr = `TIME: ${now.getHours().toString().padStart(2, "0")}:${now
-				.getMinutes()
-				.toString()
-				.padStart(
-					2,
-					"0",
-				)}:${now.getSeconds().toString().padStart(2, "0")}`;
-			setSystemTime(timeStr);
-		};
-		updateTime();
-		const interval = setInterval(updateTime, 1000);
-		return () => clearInterval(interval);
-	}, []);
 
 	if (!bootComplete) {
 		return <BootScreen onBootComplete={() => setBootComplete(true)} />;
@@ -51,7 +32,7 @@ function App() {
 				transition={{ type: "spring", stiffness: 160, damping: 24 }}
 				className="border-border-shadow drop-shadow-highlight bg-bg-main w-full max-w-6xl overflow-hidden border-2"
 			>
-				<Header systemTime={systemTime} />
+				<Header />
 				<motion.div
 					initial={{ opacity: 0, y: 10 }}
 					animate={{ opacity: 1, y: 0 }}

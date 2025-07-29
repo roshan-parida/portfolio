@@ -1,10 +1,26 @@
+import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 
-interface HeaderProps {
-	systemTime: string;
-}
+export default function Header() {
+	const [systemTime, setSystemTime] = useState("");
 
-export default function Header({ systemTime }: HeaderProps) {
+	useEffect(() => {
+		const updateTime = () => {
+			const now = new Date();
+			const timeStr = `TIME: ${now.getHours().toString().padStart(2, "0")}:${now
+				.getMinutes()
+				.toString()
+				.padStart(
+					2,
+					"0",
+				)}:${now.getSeconds().toString().padStart(2, "0")}`;
+			setSystemTime(timeStr);
+		};
+		updateTime();
+		const interval = setInterval(updateTime, 1000);
+		return () => clearInterval(interval);
+	}, []);
+
 	return (
 		<motion.header
 			initial={{ y: -30, opacity: 0 }}
@@ -15,7 +31,9 @@ export default function Header({ systemTime }: HeaderProps) {
 			<span className="whitespace-nowrap">
 				L.U.C.I.A.N. TERMINAL &infin; [AUTHORIZED USER]
 			</span>
-			<span className="whitespace-nowrap">{systemTime}</span>
+			<span className="hidden whitespace-nowrap md:block">
+				{systemTime}
+			</span>
 		</motion.header>
 	);
 }
