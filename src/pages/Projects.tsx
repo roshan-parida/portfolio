@@ -33,13 +33,6 @@ const Projects = () => {
 					&gt; Examine Evidence...
 				</a>
 			</div>
-
-			{/* Classified Stamp */}
-			<div className="relative mt-8">
-				<div className="stamp stamp-denied right-8 bottom-2">
-					CLASSIFIED
-				</div>
-			</div>
 		</div>
 	);
 };

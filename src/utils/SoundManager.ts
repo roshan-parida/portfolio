@@ -1,10 +1,14 @@
-// utils/SoundManager.ts
 import { Howl } from "howler";
 
 const bootSound = new Howl({
-	src: ["/sounds/boot.mp3"],
+	src: ["/sounds/booting.mp3"],
 	volume: 0.5,
 	loop: true,
+});
+
+const clickSound = new Howl({
+	src: ["/sounds/click.mp3"],
+	volume: 0.7,
 });
 
 export const SoundManager = {
@@ -15,5 +19,10 @@ export const SoundManager = {
 	bootStop: () => {
 		console.log("Stopping boot sound...");
 		bootSound.stop();
+	},
+
+	clickPlay: () => {
+		console.log("Playing click sound...");
+		clickSound.play();
 	},
 };

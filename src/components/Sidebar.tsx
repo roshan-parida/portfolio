@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
+import { SoundManager } from "../utils/SoundManager";
 import { ChevronDown } from "lucide-react";
 
 interface SidebarProps {
@@ -51,7 +52,10 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 				{tabs.map((tab) => (
 					<motion.button
 						key={tab.id}
-						onClick={() => setActiveTab(tab.id)}
+						onClick={() => {
+							SoundManager.clickPlay();
+							setActiveTab(tab.id);
+						}}
 						className={`terminal-button p-2 text-left transition-all duration-200 ${
 							activeTab === tab.id
 								? "bg-hover text-highlight"

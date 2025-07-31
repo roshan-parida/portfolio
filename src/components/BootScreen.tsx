@@ -8,9 +8,7 @@ const bootSequenceLines = [
 	"LOADING KERNEL...",
 	"DETECTING HARDWARE...",
 	"ESTABLISHING SECURE CONNECTION...",
-	"CONNECTION ESTABLISHED.",
 	"AWAITING USER AUTHENTICATION...",
-	"USER VERIFIED.",
 	"LOADING INTERFACE...",
 	"BOOT COMPLETE.",
 ];
@@ -25,6 +23,22 @@ export default function BootScreen({ onBootComplete }: BootScreenProps) {
 	const [bootFinished, setBootFinished] = useState(false);
 
 	useEffect(() => {
+		const startBoot = () => {
+			if (!bootStarted) setBootStarted(true);
+		};
+
+		window.addEventListener("keydown", startBoot);
+		window.addEventListener("click", startBoot);
+		window.addEventListener("touchstart", startBoot);
+
+		return () => {
+			window.removeEventListener("keydown", startBoot);
+			window.removeEventListener("click", startBoot);
+			window.removeEventListener("touchstart", startBoot);
+		};
+	}, [bootStarted]);
+
+	useEffect(() => {
 		if (!bootStarted || bootFinished) return;
 
 		if (bootIndex === 0) SoundManager.bootPlay();
@@ -32,7 +46,7 @@ export default function BootScreen({ onBootComplete }: BootScreenProps) {
 		if (bootIndex < bootSequenceLines.length) {
 			const timeout = setTimeout(
 				() => setBootIndex((i) => i + 1),
-				Math.random() * 200 + 50,
+				Math.random() * 500 + 200,
 			);
 			return () => clearTimeout(timeout);
 		} else {
@@ -42,43 +56,43 @@ export default function BootScreen({ onBootComplete }: BootScreenProps) {
 		}
 	}, [bootIndex, bootStarted, bootFinished, onBootComplete]);
 
-	const handleBoot = () => {
-		setBootStarted(true);
-	};
+	const progressPercent = (bootIndex / bootSequenceLines.length) * 100;
 
 	return (
-		<div className="crt-effect bg-bg-main fixed inset-0 z-50 flex flex-col items-center justify-center px-4 text-lg sm:text-xl md:text-2xl lg:text-3xl">
+		<div className="crt-effect bg-bg-main fixed inset-0 z-50 flex cursor-none flex-col items-center justify-center px-4 text-white select-none">
 			{!bootStarted ? (
-				<motion.button
-					initial={{ scale: 0.8, opacity: 0 }}
-					animate={{ scale: 1, opacity: 1 }}
-					transition={{ type: "spring", stiffness: 200, damping: 20 }}
-					onClick={handleBoot}
-					className="terminal-button px-8 py-4 text-4xl sm:text-5xl lg:text-6xl"
-				>
-					Boot Up
-				</motion.button>
-			) : (
-				<motion.div
+				<motion.p
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
-					transition={{ duration: 0.5 }}
-					className="w-full max-w-2xl text-center"
+					transition={{ duration: 1 }}
+					className="animate-pulse text-center text-2xl sm:text-3xl md:text-4xl"
 				>
-					{bootSequenceLines
-						.slice(0, bootIndex)
-						.map((line, index) => (
-							<motion.p
-								key={index}
-								initial={{ opacity: 0, x: -10 }}
-								animate={{ opacity: 1, x: 0 }}
-								transition={{ delay: index * 0.03 }}
-								className="whitespace-nowrap"
-							>
-								{line}
-							</motion.p>
-						))}
-				</motion.div>
+					Press any key or tap to boot...
+				</motion.p>
+			) : (
+				<div className="flex w-full max-w-2xl flex-col items-center space-y-4">
+					{/* Progress Bar */}
+					<div className="border-border-shadow h-4 w-full max-w-lg overflow-hidden border-2 bg-gray-800">
+						<motion.div
+							initial={{ width: 0 }}
+							animate={{ width: `${progressPercent}%` }}
+							transition={{ ease: "linear", duration: 0.2 }}
+							className="bg-highlight h-full"
+						/>
+					</div>
+
+					{/* Boot Line */}
+					<motion.div
+						key={bootIndex}
+						initial={{ opacity: 0, y: 10 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: -10 }}
+						transition={{ duration: 0.2 }}
+						className="flex h-8 items-center justify-center text-center text-sm sm:text-base md:text-lg lg:text-xl"
+					>
+						{bootSequenceLines[bootIndex - 1] || "BOOTING..."}
+					</motion.div>
+				</div>
 			)}
 		</div>
 	);
