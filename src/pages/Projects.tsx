@@ -1,40 +1,129 @@
-const Projects = () => {
+import { motion } from "motion/react";
+import fluxPreview from "../assets/previews/flux-preview.png";
+import pricewatchPreview from "../assets/previews/pricewatch-preview.png";
+import sentinelPreview from "../assets/previews/sentinel-preview.png";
+
+type ProjectProps = {
+	projectName: string;
+	projectDate: string;
+	projectShort: string;
+	projectDesc: string[];
+	projectLink: string;
+	projectImage: string;
+	isFirst?: boolean;
+	isLast?: boolean;
+};
+
+const projectData: ProjectProps[] = [
+	{
+		projectName: "Sentinel",
+		projectDate: "February 2025",
+		projectShort: "Arduino Security System",
+		projectDesc: [
+			"Arduino-based project",
+			"Integrated motion, RFID, and temperature sensors.",
+			"Managed via web dashboard.",
+		],
+		projectLink: "https://github.com/roshan-parida/sentinel",
+		projectImage: sentinelPreview,
+	},
+	{
+		projectName: "PriceWatch",
+		projectDate: "September 2024",
+		projectShort: "Amazon Web Scrapper",
+		projectDesc: [
+			"Built in Next.js that monitors product prices on Amazon.",
+			"Integrated Framer Motion for UI animations.",
+			"Hosted on Vercel.",
+		],
+		projectLink: "https://pricewatch-delta.vercel.app/",
+		projectImage: pricewatchPreview,
+	},
+	{
+		projectName: "Flux",
+		projectDate: "July 2024",
+		projectShort: "Music Streaming Website",
+		projectDesc: [
+			"Built application using MongoDB, Express, Node.js, and Vite.js",
+			"Includes music upload, playback, and user authentication.",
+			"Hosted on Vercel (frontend) & Render (backend).",
+		],
+		projectLink: "https://fluxwaves.vercel.app/",
+		projectImage: fluxPreview,
+	},
+];
+
+function Project({
+	projectName,
+	projectDate,
+	projectShort,
+	projectDesc,
+	projectLink,
+	projectImage,
+	isFirst,
+	isLast,
+}: ProjectProps) {
+	const borderTop = isFirst ? "" : "border-t";
+	const borderBottom = isLast ? "" : "border-b";
+	const borderClass = `border-border-shadow ${borderTop} ${borderBottom}`;
+
 	return (
-		<div className="relative">
-			<h2 className="text-highlight glitch mb-4 text-2xl">
-				PROJECT EVIDENCES
-			</h2>
-
-			{/* Project 001 */}
-			<div className="border-border-shadow mb-4 border-t-2 pt-2">
-				<h3 className="text-xl">Flux [Case #001]</h3>
-				<p className="mb-2 text-sm">Music Streaming App</p>
-				<a href="#" className="text-highlight hover:underline">
-					&gt; Examine Evidence...
+		<div
+			className={`${borderClass} grid grid-cols-1 gap-6 px-4 py-6 md:grid-cols-[1fr_320px] md:px-2 md:py-4`}
+		>
+			<div>
+				<div className="mb-2 flex items-center justify-between">
+					<h3 className="glitch text-highlight text-2xl font-bold tracking-wide">
+						{projectName}
+					</h3>
+					<span className="text-sm">{projectDate}</span>
+				</div>
+				<span className="text-text-primary text-lg">
+					{projectShort}
+				</span>
+				<ul className="mt-2 mb-3 list-disc pl-5 text-base leading-relaxed">
+					{projectDesc.map((point, idx) => (
+						<li key={idx}>{point}</li>
+					))}
+				</ul>
+				<a
+					href={projectLink}
+					target="_blank"
+					rel="noopener noreferrer"
+					className="text-highlight hover:underline"
+				>
+					&gt; Examine...
 				</a>
 			</div>
-
-			{/* Project 002 */}
-			<div className="border-border-shadow mb-4 border-t-2 pt-2">
-				<h3 className="text-xl">PriceWatch [Case #002]</h3>
-				<p className="mb-2 text-sm">Amazon Price Tracker</p>
-				<a href="#" className="text-highlight hover:underline">
-					&gt; Examine Evidence...
-				</a>
-			</div>
-
-			{/* Project 003 */}
-			<div className="border-border-shadow mb-4 border-t-2 pt-2">
-				<h3 className="text-xl">Sentinel [Case #003]</h3>
-				<p className="mb-2 text-sm">
-					Arduino Security System with Motion Detection
-				</p>
-				<a href="#" className="text-highlight hover:underline">
-					&gt; Examine Evidence...
-				</a>
-			</div>
+			<motion.img
+				initial={{ opacity: 0 }}
+				animate={{ opacity: 1 }}
+				transition={{ duration: 0.6, ease: "easeOut" }}
+				onLoad={(e) => {
+					e.currentTarget.style.opacity = "1";
+				}}
+				src={projectImage}
+				alt={`Preview of ${projectName} - ${projectShort}`}
+				aria-label={`Visit ${projectName} project link`}
+				className="border-border-shadow hover:border-highlight h-48 w-full max-w-full border-2 object-top-left hover:border-dashed md:h-60"
+			/>
 		</div>
 	);
-};
+}
+
+const Projects = () => (
+	<div className="relative">
+		<>
+			{projectData.map((proj, index) => (
+				<Project
+					key={index}
+					{...proj}
+					isFirst={index === 0}
+					isLast={index === projectData.length - 1}
+				/>
+			))}
+		</>
+	</div>
+);
 
 export default Projects;

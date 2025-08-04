@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { SoundManager } from "../utils/SoundManager";
-import { ChevronDown } from "lucide-react";
+import { Icon } from "@iconify/react";
 
 interface SidebarProps {
 	activeTab: string;
@@ -73,15 +73,15 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 					isMobile ? "cursor-pointer select-none" : ""
 				}`}
 			>
-				<div className="flex items-center justify-between">
-					<h3 className="text-highlight mb-2 text-lg tracking-wide">
+				<div className="flex items-center justify-between p-2">
+					<h3 className="text-highlight text-lg tracking-wide">
 						NETWORK ACCESS
 					</h3>
 
 					{isMobile && (
-						<ChevronDown
-							size={18}
-							className={`transition-transform duration-200 ${
+						<Icon
+							icon="uil:angle-double-down"
+							className={`size-6 transition-transform duration-200 ${
 								networkOpen ? "rotate-180" : "rotate-0"
 							}`}
 						/>
@@ -98,30 +98,33 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 					transition={{ duration: 0.25 }}
 					className="overflow-hidden"
 				>
-					<div className="inline-flex flex-col space-y-1 text-sm">
+					<div className="flex justify-around space-y-1 py-3 text-sm">
 						<a
 							href="https://github.com/roshan-parida"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="items-center gap-2 hover:underline"
+							className="hover:text-highlight flex flex-col items-center gap-1 transition-all duration-300 ease-in-out hover:underline"
 						>
-							&gt; [Gh] Github
+							<Icon icon="uil:github-alt" className="size-5" />
+							<span>Github</span>
 						</a>
 						<a
 							href="https://www.linkedin.com/in/roshan-parida/"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="items-center gap-2 hover:underline"
+							className="hover:text-highlight flex flex-col items-center gap-1 transition-all duration-300 ease-in-out hover:underline"
 						>
-							&gt; [Ln] LinkedIn
+							<Icon icon="uil:linkedin-alt" className="size-5" />
+							<span>LinkedIn</span>
 						</a>
 						<a
 							href="https://www.instagram.com/roshan_ot23/"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="items-center gap-2 hover:underline"
+							className="hover:text-highlight flex flex-col items-center gap-1 transition-all duration-300 ease-in-out hover:underline"
 						>
-							&gt; [In] Instagram
+							<Icon icon="uil:instagram" className="size-5" />
+							<span>Instagram</span>
 						</a>
 					</div>
 				</motion.div>

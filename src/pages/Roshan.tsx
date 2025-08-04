@@ -1,3 +1,4 @@
+import { motion } from "motion/react";
 import roshanImage from "../assets/roshan.png";
 
 const Roshan = () => {
@@ -7,13 +8,19 @@ const Roshan = () => {
 				{/* Photo Section */}
 				<div className="w-full md:w-1/3">
 					<div className="border-border-shadow hover:border-highlight border hover:border-dashed">
-						<img
+						<motion.img
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.6, ease: "easeOut" }}
+							onLoad={(e) => {
+								e.currentTarget.style.opacity = "1";
+							}}
 							src={roshanImage}
 							alt="Roshan Parida"
 							className="w-full object-cover hover:animate-pulse"
 						/>
 					</div>
-					<div className="text-highlight glitch mt-3 flex items-center justify-center text-2xl">
+					<div className="text-highlight glitch mt-3 flex items-center justify-center text-2xl font-bold">
 						ROSHAN PARIDA
 					</div>
 				</div>
