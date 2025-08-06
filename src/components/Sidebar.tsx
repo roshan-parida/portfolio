@@ -1,41 +1,92 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { motion } from "motion/react";
-import { SoundManager } from "../utils/SoundManager";
 import { Icon } from "@iconify/react";
+import { SoundManager } from "../utils/SoundManager";
+
+const tabs = [
+	{ id: "roshan", label: "01_ROSHAN.txt" },
+	{ id: "projects", label: "02_PROJECTS.log" },
+	{ id: "contact", label: "03_CONTACT.inf" },
+] as const;
+
+type TabId = (typeof tabs)[number]["id"];
 
 interface SidebarProps {
-	activeTab: string;
-	setActiveTab: (tab: "roshan" | "projects" | "contact") => void;
+	activeTab: TabId;
+	setActiveTab: (tab: TabId) => void;
 }
 
-export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
-	const tabs = [
-		{ id: "roshan", label: "01_ROSHAN.txt" },
-		{ id: "projects", label: "02_PROJECTS.log" },
-		{ id: "contact", label: "03_CONTACT.inf" },
-	] as const;
+const asciiFrames = [
+	`   ██████╗
+  ██╔═══██╗
+  ██║██╗██║
+  ╚██████╔╝
+   ╚═██╔═╝
+     ╚═╝   `,
+	`   ██████╗
+  ██╔═══██╗
+  ██║██╗██║
+  ╚██╔═══╝ 
+   ╚██████╗
+     ╚═══╝ `,
+	`   ██████╗
+  ██╔═══██╗
+  ██║██╗██║
+  ╚██████╔╝
+   ╚═██╔═╝
+     ╚═╝░░ `,
+];
 
+export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 	const [isMobile, setIsMobile] = useState(false);
 	const [networkOpen, setNetworkOpen] = useState(true);
 
 	useEffect(() => {
-		const checkMobile = () => {
+		const handleResize = () => {
 			const mobile = window.innerWidth < 768;
 			setIsMobile(mobile);
 			setNetworkOpen(!mobile);
 		};
-		checkMobile();
-		window.addEventListener("resize", checkMobile);
-		return () => window.removeEventListener("resize", checkMobile);
+		handleResize();
+		window.addEventListener("resize", handleResize);
+		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
 	useEffect(() => {
 		if (isMobile) setNetworkOpen(false);
 	}, [activeTab, isMobile]);
 
-	const toggleNetwork = () => {
-		if (isMobile) setNetworkOpen((prev) => !prev);
-	};
+	const toggleNetwork = () => isMobile && setNetworkOpen((prev) => !prev);
+
+	const socialLinks = useMemo(
+		() => [
+			{
+				href: "https://github.com/roshan-parida",
+				icon: "uil:github-alt",
+				label: "Github",
+			},
+			{
+				href: "https://www.linkedin.com/in/roshan-parida/",
+				icon: "uil:linkedin-alt",
+				label: "LinkedIn",
+			},
+			{
+				href: "https://www.instagram.com/roshan_ot23/",
+				icon: "uil:instagram",
+				label: "Instagram",
+			},
+		],
+		[],
+	);
+
+	const [frameIndex, setFrameIndex] = useState(0);
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setFrameIndex((prev) => (prev + 1) % asciiFrames.length);
+		}, 350);
+		return () => clearInterval(interval);
+	}, []);
 
 	return (
 		<motion.aside
@@ -49,20 +100,18 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 			</h2>
 
 			<nav className="flex flex-col space-y-2">
-				{tabs.map((tab) => (
+				{tabs.map(({ id, label }) => (
 					<motion.button
-						key={tab.id}
+						key={id}
 						onClick={() => {
 							SoundManager.clickPlay();
-							setActiveTab(tab.id);
+							setActiveTab(id);
 						}}
 						className={`terminal-button p-2 text-left transition-all duration-200 ${
-							activeTab === tab.id
-								? "bg-hover text-highlight"
-								: ""
+							activeTab === id ? "bg-hover text-highlight" : ""
 						}`}
 					>
-						{tab.label}
+						{label}
 					</motion.button>
 				))}
 			</nav>
@@ -73,11 +122,10 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 					isMobile ? "cursor-pointer select-none" : ""
 				}`}
 			>
-				<div className="flex items-center justify-between p-2">
+				<div className="flex items-center justify-between p-2 md:justify-center">
 					<h3 className="text-highlight text-lg tracking-wide">
 						NETWORK ACCESS
 					</h3>
-
 					{isMobile && (
 						<Icon
 							icon="uil:angle-double-down"
@@ -90,66 +138,36 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 
 				<motion.div
 					initial={false}
-					animate={
-						!isMobile || networkOpen
-							? { height: "auto", opacity: 1 }
-							: { height: 0, opacity: 0 }
-					}
+					animate={{
+						height: !isMobile || networkOpen ? "auto" : 0,
+						opacity: !isMobile || networkOpen ? 1 : 0,
+					}}
 					transition={{ duration: 0.25 }}
 					className="overflow-hidden"
 				>
 					<div className="flex justify-around space-y-1 py-3 text-sm">
-						<a
-							href="https://github.com/roshan-parida"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="hover:text-highlight flex flex-col items-center gap-1 transition-all duration-300 ease-in-out hover:underline"
-						>
-							<Icon icon="uil:github-alt" className="size-5" />
-							<span>Github</span>
-						</a>
-						<a
-							href="https://www.linkedin.com/in/roshan-parida/"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="hover:text-highlight flex flex-col items-center gap-1 transition-all duration-300 ease-in-out hover:underline"
-						>
-							<Icon icon="uil:linkedin-alt" className="size-5" />
-							<span>LinkedIn</span>
-						</a>
-						<a
-							href="https://www.instagram.com/roshan_ot23/"
-							target="_blank"
-							rel="noopener noreferrer"
-							className="hover:text-highlight flex flex-col items-center gap-1 transition-all duration-300 ease-in-out hover:underline"
-						>
-							<Icon icon="uil:instagram" className="size-5" />
-							<span>Instagram</span>
-						</a>
+						{socialLinks.map(({ href, icon, label }) => (
+							<a
+								key={label}
+								href={href}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="hover:text-highlight flex flex-col items-center gap-1 transition-all duration-300 ease-in-out hover:underline"
+							>
+								<Icon icon={icon} className="size-5" />
+								<span>{label}</span>
+							</a>
+						))}
 					</div>
 				</motion.div>
 			</div>
 
-			<motion.div
-				initial={{ opacity: 0, y: 10 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ delay: 0.3 }}
-				className="border-border-shadow mt-8 hidden border p-2 md:block"
-			>
-				<h3 className="text-highlight mb-2 text-lg tracking-wide">
-					SYSTEM STATUS
-				</h3>
-				<ul className="space-y-1 text-sm">
-					<li>
-						&gt; CONNECTION:{" "}
-						<span className="text-highlight animate-pulse">
-							SECURE
-						</span>
-					</li>
-					<li>&gt; ID VERIFIED: LUCIAN</li>
-					<li>&gt; CLEARANCE: LEVEL 7</li>
-				</ul>
-			</motion.div>
+			{/* ascii art */}
+			{!isMobile && (
+				<div className="border-border-shadow mt-4 border p-6 text-center font-mono text-sm leading-none whitespace-pre md:block">
+					<pre>{asciiFrames[frameIndex]}</pre>
+				</div>
+			)}
 		</motion.aside>
 	);
 }

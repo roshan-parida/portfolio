@@ -1,4 +1,5 @@
-import { motion } from "motion/react";
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import fluxPreview from "../assets/previews/flux-preview.png";
 import pricewatchPreview from "../assets/previews/pricewatch-preview.png";
 import sentinelPreview from "../assets/previews/sentinel-preview.png";
@@ -67,6 +68,8 @@ function Project({
 	const borderBottom = isLast ? "" : "border-b";
 	const borderClass = `border-border-shadow ${borderTop} ${borderBottom}`;
 
+	const [isLoaded, setIsLoaded] = useState(false);
+
 	return (
 		<div
 			className={`${borderClass} grid grid-cols-1 gap-6 px-4 py-6 md:grid-cols-[1fr_320px] md:px-2 md:py-4`}
@@ -95,18 +98,31 @@ function Project({
 					&gt; Examine...
 				</a>
 			</div>
-			<motion.img
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				transition={{ duration: 0.6, ease: "easeOut" }}
-				onLoad={(e) => {
-					e.currentTarget.style.opacity = "1";
-				}}
-				src={projectImage}
-				alt={`Preview of ${projectName} - ${projectShort}`}
-				aria-label={`Visit ${projectName} project link`}
-				className="border-border-shadow hover:border-highlight h-48 w-full max-w-full border-2 object-top-left hover:border-dashed md:h-60"
-			/>
+
+			<div className="relative h-48 w-full md:h-60">
+				<AnimatePresence>
+					{!isLoaded && (
+						<motion.div
+							className="bg-border-shadow absolute inset-0 h-full w-full"
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							exit={{ opacity: 0 }}
+							transition={{ duration: 0.3 }}
+						/>
+					)}
+				</AnimatePresence>
+
+				<motion.img
+					src={projectImage}
+					alt={`Preview of ${projectName} - ${projectShort}`}
+					loading="lazy"
+					onLoad={() => setIsLoaded(true)}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: isLoaded ? 1 : 0 }}
+					transition={{ duration: 0.5, ease: "easeOut" }}
+					className="border-border-shadow hover:border-highlight h-full w-full max-w-full border-2 object-top-left hover:border-dashed"
+				/>
+			</div>
 		</div>
 	);
 }
