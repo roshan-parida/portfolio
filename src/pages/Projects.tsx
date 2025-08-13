@@ -107,7 +107,7 @@ function Project({
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
 							exit={{ opacity: 0 }}
-							transition={{ duration: 0.3 }}
+							transition={{ duration: 0.8 }}
 						/>
 					)}
 				</AnimatePresence>
@@ -119,7 +119,7 @@ function Project({
 					onLoad={() => setIsLoaded(true)}
 					initial={{ opacity: 0 }}
 					animate={{ opacity: isLoaded ? 1 : 0 }}
-					transition={{ duration: 0.5, ease: "easeOut" }}
+					transition={{ duration: 0.5, ease: "easeInOut" }}
 					className="border-border-shadow hover:border-highlight h-full w-full max-w-full border-2 object-top-left hover:border-dashed"
 				/>
 			</div>

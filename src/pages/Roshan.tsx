@@ -1,19 +1,40 @@
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import roshanImage from "../assets/roshan.png";
 
 const Roshan = () => {
+	const [isLoaded, setIsLoaded] = useState(false);
+
 	return (
 		<div className="relative">
 			<div className="flex flex-col gap-6 md:flex-row">
 				{/* Photo Section */}
 				<div className="w-full md:w-1/3">
-					<div className="border-border-shadow hover:border-highlight border hover:border-dashed">
-						<img
+					<div className="border-border-shadow relative h-48 w-full border hover:border-none md:h-60">
+						<AnimatePresence>
+							{!isLoaded && (
+								<motion.div
+									className="bg-border-shadow absolute inset-0 h-full w-full"
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									exit={{ opacity: 0 }}
+									transition={{ duration: 0.8 }}
+								/>
+							)}
+						</AnimatePresence>
+
+						<motion.img
 							src={roshanImage}
-							loading="eager"
 							alt="Roshan Parida"
-							className="w-full object-cover hover:animate-pulse"
+							loading="lazy"
+							onLoad={() => setIsLoaded(true)}
+							initial={{ opacity: 0 }}
+							animate={{ opacity: isLoaded ? 1 : 0 }}
+							transition={{ duration: 0.5, ease: "easeInOut" }}
+							className="border-border-shadow hover:border-highlight h-full w-full max-w-full border object-cover hover:border-2 hover:border-dashed"
 						/>
 					</div>
+
 					<div className="text-highlight glitch mt-3 flex items-center justify-center text-2xl font-bold">
 						ROSHAN PARIDA
 					</div>

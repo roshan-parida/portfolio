@@ -16,27 +16,6 @@ interface SidebarProps {
 	setActiveTab: (tab: TabId) => void;
 }
 
-const asciiFrames = [
-	`   ██████╗
-  ██╔═══██╗
-  ██║██╗██║
-  ╚██████╔╝
-   ╚═██╔═╝
-     ╚═╝   `,
-	`   ██████╗
-  ██╔═══██╗
-  ██║██╗██║
-  ╚██╔═══╝ 
-   ╚██████╗
-     ╚═══╝ `,
-	`   ██████╗
-  ██╔═══██╗
-  ██║██╗██║
-  ╚██████╔╝
-   ╚═██╔═╝
-     ╚═╝░░ `,
-];
-
 export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 	const [isMobile, setIsMobile] = useState(false);
 	const [networkOpen, setNetworkOpen] = useState(true);
@@ -71,22 +50,13 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 				label: "LinkedIn",
 			},
 			{
-				href: "https://www.instagram.com/roshan_ot23/",
+				href: "https://www.instagram.com/lucianevenin/",
 				icon: "uil:instagram",
 				label: "Instagram",
 			},
 		],
 		[],
 	);
-
-	const [frameIndex, setFrameIndex] = useState(0);
-
-	useEffect(() => {
-		const interval = setInterval(() => {
-			setFrameIndex((prev) => (prev + 1) % asciiFrames.length);
-		}, 350);
-		return () => clearInterval(interval);
-	}, []);
 
 	return (
 		<motion.aside
@@ -104,7 +74,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 					<motion.button
 						key={id}
 						onClick={() => {
-							SoundManager.clickPlay();
+							SoundManager.buttonPlay();
 							setActiveTab(id);
 						}}
 						className={`terminal-button p-2 text-left transition-all duration-200 ${
@@ -150,6 +120,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 							<a
 								key={label}
 								href={href}
+								onClick={() => SoundManager.clickPlay()}
 								target="_blank"
 								rel="noopener noreferrer"
 								className="hover:text-highlight flex flex-col items-center gap-1 transition-all duration-300 ease-in-out hover:underline"
@@ -162,11 +133,9 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 				</motion.div>
 			</div>
 
-			{/* ascii art */}
+			{/* volume control or audio visualizer */}
 			{!isMobile && (
-				<div className="border-border-shadow mt-4 border p-6 text-center font-mono text-sm leading-none whitespace-pre md:block">
-					<pre>{asciiFrames[frameIndex]}</pre>
-				</div>
+				<div className="border-border-shadow mt-4 border p-6 text-center font-mono text-sm leading-none whitespace-pre md:block"></div>
 			)}
 		</motion.aside>
 	);
