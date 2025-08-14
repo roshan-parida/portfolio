@@ -94,7 +94,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 			>
 				<div className="flex items-center justify-between p-2 md:justify-center">
 					<h3 className="text-highlight text-lg tracking-wide">
-						NETWORK ACCESS
+						SOCIAL ACCESS
 					</h3>
 					{isMobile && (
 						<Icon

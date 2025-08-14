@@ -3,12 +3,14 @@ import { AnimatePresence, motion } from "motion/react";
 import fluxPreview from "../assets/previews/flux-preview.png";
 import pricewatchPreview from "../assets/previews/pricewatch-preview.png";
 import sentinelPreview from "../assets/previews/sentinel-preview.png";
+import { SoundManager } from "../utils/SoundManager";
 
 type ProjectProps = {
 	projectName: string;
 	projectDate: string;
 	projectShort: string;
 	projectDesc: string[];
+	projectRepo: string;
 	projectLink: string;
 	projectImage: string;
 	isFirst?: boolean;
@@ -25,7 +27,8 @@ const projectData: ProjectProps[] = [
 			"Integrated motion, RFID, and temperature sensors.",
 			"Managed via web dashboard.",
 		],
-		projectLink: "https://github.com/roshan-parida/sentinel",
+		projectRepo: "https://github.com/roshan-parida/sentinel",
+		projectLink: "",
 		projectImage: sentinelPreview,
 	},
 	{
@@ -37,6 +40,7 @@ const projectData: ProjectProps[] = [
 			"Integrated Framer Motion for UI animations.",
 			"Hosted on Vercel.",
 		],
+		projectRepo: "https://github.com/roshan-parida/pricewatch",
 		projectLink: "https://pricewatch-delta.vercel.app/",
 		projectImage: pricewatchPreview,
 	},
@@ -49,6 +53,7 @@ const projectData: ProjectProps[] = [
 			"Includes music upload, playback, and user authentication.",
 			"Hosted on Vercel (frontend) & Render (backend).",
 		],
+		projectRepo: "https://github.com/roshan-parida/flux",
 		projectLink: "https://fluxwaves.vercel.app/",
 		projectImage: fluxPreview,
 	},
@@ -59,6 +64,7 @@ function Project({
 	projectDate,
 	projectShort,
 	projectDesc,
+	projectRepo,
 	projectLink,
 	projectImage,
 	isFirst,
@@ -89,14 +95,28 @@ function Project({
 						<li key={idx}>{point}</li>
 					))}
 				</ul>
-				<a
-					href={projectLink}
-					target="_blank"
-					rel="noopener noreferrer"
-					className="text-highlight hover:underline"
-				>
-					&gt; Examine...
-				</a>
+				<div className="flex items-center justify-between px-1">
+					<a
+						href={projectRepo}
+						onClick={() => SoundManager.clickPlay()}
+						target="_blank"
+						rel="noopener noreferrer"
+						className="text-highlight hover:underline"
+					>
+						&gt; code...
+					</a>
+					{projectLink !== "" && (
+						<a
+							href={projectLink}
+							onClick={() => SoundManager.clickPlay()}
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-highlight hover:underline"
+						>
+							&gt; visit...
+						</a>
+					)}
+				</div>
 			</div>
 
 			<div className="relative h-48 w-full md:h-60">
