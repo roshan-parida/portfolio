@@ -69,7 +69,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 				DIRECTORY
 			</h2>
 
-			<nav className="flex flex-col space-y-2">
+			<nav className="hidden flex-col space-y-2 md:flex">
 				{tabs.map(({ id, label }) => (
 					<motion.button
 						key={id}
@@ -86,6 +86,26 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 				))}
 			</nav>
 
+			<nav className="no-scrollbar flex gap-3 overflow-x-auto py-2 md:hidden">
+				{tabs.map(({ id, label }) => (
+					<motion.button
+						key={id}
+						onClick={() => {
+							SoundManager.buttonPlay();
+							setActiveTab(id);
+						}}
+						className={`terminal-button px-4 py-2 text-base whitespace-nowrap transition-all duration-200 ${
+							activeTab === id
+								? "bg-hover text-highlight border-highlight"
+								: "border-border-shadow"
+						}`}
+					>
+						{label}
+					</motion.button>
+				))}
+			</nav>
+
+			{/* Social Access */}
 			<div
 				onClick={toggleNetwork}
 				className={`border-border-shadow mt-8 border p-2 ${
