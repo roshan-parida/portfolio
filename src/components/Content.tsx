@@ -8,7 +8,7 @@ interface ContentProps {
 export default function Content({ activeTab, TABS }: ContentProps) {
 	return (
 		<div className="relative w-full max-w-4xl md:w-3/4">
-			<div className="content-window border-border-shadow h-[70vh] overflow-y-auto border bg-[#1e1e1e] p-4 md:h-[500px]">
+			<div className="content-window border-border-shadow h-[calc(100vh-200px)] max-h-[70vh] overflow-y-auto border bg-[#1e1e1e] p-4 md:h-[500px]">
 				<AnimatePresence mode="wait">
 					<motion.div
 						key={activeTab}

@@ -78,21 +78,25 @@ function Project({
 
 	return (
 		<div
-			className={`${borderClass} grid grid-cols-1 gap-6 px-4 py-6 md:grid-cols-[1fr_320px] md:px-2 md:py-4`}
+			className={`${borderClass} flex flex-col gap-4 px-2 py-4 sm:px-4 sm:py-6 md:grid md:grid-cols-[1fr_300px] md:gap-6`}
 		>
-			<div>
-				<div className="mb-2 flex items-center justify-between">
-					<h3 className="glitch text-highlight text-2xl font-bold tracking-wide">
+			<div className="min-w-0">
+				<div className="mb-2 flex flex-col sm:flex-row sm:items-center sm:justify-between">
+					<h3 className="glitch text-highlight truncate text-xl font-bold tracking-wide sm:text-2xl">
 						{projectName}
 					</h3>
-					<span className="text-sm">{projectDate}</span>
+					<span className="mt-1 flex-shrink-0 text-xs sm:mt-0 sm:ml-4 sm:text-sm">
+						{projectDate}
+					</span>
 				</div>
-				<span className="text-text-primary text-lg">
+				<span className="text-text-primary block text-base sm:text-lg">
 					{projectShort}
 				</span>
-				<ul className="mt-2 mb-3 list-disc pl-5 text-base leading-relaxed">
+				<ul className="mt-2 mb-3 list-disc space-y-1 pl-5 text-sm leading-relaxed sm:text-base">
 					{projectDesc.map((point, idx) => (
-						<li key={idx}>{point}</li>
+						<li key={idx} className="break-words">
+							{point}
+						</li>
 					))}
 				</ul>
 				<div className="flex items-center justify-between px-1">
@@ -101,7 +105,7 @@ function Project({
 						onClick={() => SoundManager.clickPlay()}
 						target="_blank"
 						rel="noopener noreferrer"
-						className="text-highlight hover:underline"
+						className="text-highlight text-sm hover:underline sm:text-base"
 					>
 						&gt; code...
 					</a>
@@ -111,7 +115,7 @@ function Project({
 							onClick={() => SoundManager.clickPlay()}
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-highlight hover:underline"
+							className="text-highlight text-sm hover:underline sm:text-base"
 						>
 							&gt; visit...
 						</a>
@@ -119,29 +123,31 @@ function Project({
 				</div>
 			</div>
 
-			<div className="relative h-48 w-full md:h-60">
-				<AnimatePresence>
-					{!isLoaded && (
-						<motion.div
-							className="bg-border-shadow absolute inset-0 h-full w-full"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							exit={{ opacity: 0 }}
-							transition={{ duration: 0.8 }}
-						/>
-					)}
-				</AnimatePresence>
+			<div className="h-40 w-full flex-shrink-0 sm:h-48 md:h-60">
+				<div className="relative h-full w-full">
+					<AnimatePresence>
+						{!isLoaded && (
+							<motion.div
+								className="bg-border-shadow absolute inset-0 h-full w-full"
+								initial={{ opacity: 0 }}
+								animate={{ opacity: 1 }}
+								exit={{ opacity: 0 }}
+								transition={{ duration: 0.8 }}
+							/>
+						)}
+					</AnimatePresence>
 
-				<motion.img
-					src={projectImage}
-					alt={`Preview of ${projectName} - ${projectShort}`}
-					loading="lazy"
-					onLoad={() => setIsLoaded(true)}
-					initial={{ opacity: 0 }}
-					animate={{ opacity: isLoaded ? 1 : 0 }}
-					transition={{ duration: 0.5, ease: "easeInOut" }}
-					className="border-border-shadow hover:border-highlight h-full w-full max-w-full border-2 object-top-left hover:border-dashed"
-				/>
+					<motion.img
+						src={projectImage}
+						alt={`Preview of ${projectName} - ${projectShort}`}
+						loading="lazy"
+						onLoad={() => setIsLoaded(true)}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: isLoaded ? 1 : 0 }}
+						transition={{ duration: 0.5, ease: "easeInOut" }}
+						className="border-border-shadow hover:border-highlight h-full w-full border-2 object-top-left hover:border-dashed"
+					/>
+				</div>
 			</div>
 		</div>
 	);
@@ -149,16 +155,14 @@ function Project({
 
 const Projects = () => (
 	<div className="relative">
-		<>
-			{projectData.map((proj, index) => (
-				<Project
-					key={index}
-					{...proj}
-					isFirst={index === 0}
-					isLast={index === projectData.length - 1}
-				/>
-			))}
-		</>
+		{projectData.map((proj, index) => (
+			<Project
+				key={index}
+				{...proj}
+				isFirst={index === 0}
+				isLast={index === projectData.length - 1}
+			/>
+		))}
 	</div>
 );
 
