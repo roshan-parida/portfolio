@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from "react";
 import { motion } from "motion/react";
 import { Icon } from "@iconify/react";
 import { SoundManager } from "../utils/SoundManager";
+import AudioVisualizer from "./AudioVisualizer";
 
 const tabs = [
 	{ id: "roshan", label: "01_ROSHAN.txt" },
@@ -19,6 +20,7 @@ interface SidebarProps {
 export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 	const [isMobile, setIsMobile] = useState(false);
 	const [networkOpen, setNetworkOpen] = useState(true);
+	const [soundMuted, setSoundMuted] = useState(SoundManager.isMuted());
 
 	useEffect(() => {
 		const handleResize = () => {
@@ -50,7 +52,7 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 				label: "LinkedIn",
 			},
 			{
-				href: "https://www.instagram.com/lucianevenin/",
+				href: "https://www.instagram.com/lucian_evenin/",
 				icon: "uil:instagram",
 				label: "Instagram",
 			},
@@ -153,9 +155,21 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
 				</motion.div>
 			</div>
 
-			{/* volume control or audio visualizer */}
+			{/* Audio System */}
 			{!isMobile && (
-				<div className="border-border-shadow mt-4 border p-6 text-center font-mono text-sm leading-none whitespace-pre md:block"></div>
+				<div className="border-border-shadow bg-bg-main mt-4 flex items-center justify-evenly gap-3 border p-3 transition-all duration-300 ease-in-out">
+					<AudioVisualizer muted={soundMuted} sensitivity={3} />
+
+					<Icon
+						icon={soundMuted ? "uil:volume-mute" : "uil:volume"}
+						className="hover:text-highlight size-6 cursor-pointer transition-colors duration-200"
+						onClick={() => {
+							const muted = SoundManager.toggleMute();
+							SoundManager.unmutePlay();
+							setSoundMuted(muted);
+						}}
+					/>
+				</div>
 			)}
 		</motion.aside>
 	);

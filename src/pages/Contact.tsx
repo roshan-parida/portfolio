@@ -1,4 +1,6 @@
 import { useForm } from "@formspree/react";
+import { useEffect } from "react";
+import { SoundManager } from "../utils/SoundManager";
 
 const Contact = () => {
 	const [state, handleSubmit, reset] = useForm(
@@ -10,6 +12,14 @@ const Contact = () => {
 		console.error("Formspree Errors:", state.errors?.getAllFieldErrors());
 	}
 
+	useEffect(() => {
+		if (state.submitting) {
+			SoundManager.transmitPlay();
+		} else {
+			SoundManager.transmitStop();
+		}
+	}, [state.submitting]);
+
 	return (
 		<div>
 			<p className="mb-4">
@@ -20,10 +30,9 @@ const Contact = () => {
 			<form
 				onSubmit={(e) => {
 					handleSubmit(e);
+
 					if (!state.submitting) {
-						setTimeout(() => {
-							reset();
-						}, 5000);
+						setTimeout(() => reset(), 3000);
 					}
 				}}
 			>
