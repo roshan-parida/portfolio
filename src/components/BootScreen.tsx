@@ -2,17 +2,6 @@ import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { SoundManager } from "../utils/SoundManager";
 
-const bootSequenceLines = [
-	"LUCIAN BIOS INITIALIZING...",
-	"MEMORY CHECK: 640K OK",
-	"LOADING KERNEL...",
-	"DETECTING HARDWARE...",
-	"ESTABLISHING SECURE CONNECTION...",
-	"AWAITING USER AUTHENTICATION...",
-	"LOADING INTERFACE...",
-	"BOOT COMPLETE.",
-];
-
 type BootScreenProps = {
 	onBootComplete: () => void;
 };
@@ -21,6 +10,36 @@ export default function BootScreen({ onBootComplete }: BootScreenProps) {
 	const [bootStarted, setBootStarted] = useState(false);
 	const [bootIndex, setBootIndex] = useState(0);
 	const [bootFinished, setBootFinished] = useState(false);
+	const [bootSequenceLines, setBootSequenceLines] = useState<string[]>([]);
+
+	const getClientInfo = () => {
+		const info: string[] = [];
+		info.push("LUCIAN BIOS INITIALIZING...");
+		info.push("LOADING KERNEL...");
+		info.push("DETECTING HARDWARE...");
+
+		// Browser
+		info.push(`LANGUAGE: ${navigator.language}`);
+
+		// Screen
+		info.push(`SCREEN: ${window.screen.width}x${window.screen.height}`);
+
+		// Hardware
+		if ("hardwareConcurrency" in navigator) {
+			info.push(`CPU CORES: ${navigator.hardwareConcurrency}`);
+		}
+		if ("deviceMemory" in navigator) {
+			info.push(`RAM (EST): ${(navigator as any).deviceMemory} GB`);
+		}
+
+		info.push("BOOT COMPLETE.");
+
+		return info;
+	};
+
+	useEffect(() => {
+		setBootSequenceLines(getClientInfo());
+	}, []);
 
 	useEffect(() => {
 		const startBoot = () => {
@@ -54,7 +73,13 @@ export default function BootScreen({ onBootComplete }: BootScreenProps) {
 			setBootFinished(true);
 			setTimeout(() => onBootComplete(), 700);
 		}
-	}, [bootIndex, bootStarted, bootFinished, onBootComplete]);
+	}, [
+		bootIndex,
+		bootStarted,
+		bootFinished,
+		bootSequenceLines,
+		onBootComplete,
+	]);
 
 	const progressPercent = (bootIndex / bootSequenceLines.length) * 100;
 
